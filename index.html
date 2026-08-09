@@ -23,7 +23,7 @@
 
     <div class="card" id="card">
         <div class="card-header">
-            <h2>Abide</h2>
+            <h2 id="name"></h2>
         </div>
         <div class="card-body">
             <h6>Open in:</h6>
@@ -73,6 +73,7 @@
 
     const card = document.getElementById("card")
     const notFound = document.getElementById("notFound")
+    const name = document.getElementById("name")
     const ccliButton = document.getElementById("ccli")
     const applemusicButton = document.getElementById("am")
     const spotifyButton = document.getElementById("sp")
@@ -82,6 +83,7 @@
         card.hidden = true
         notFound.hidden = false
     } else {
+        name.innerText = songName
         if (ccliID == null) {
             ccliButton.hidden = true
         } else {
