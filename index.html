@@ -79,27 +79,27 @@
     const spotifyButton = document.getElementById("sp")
     const youtubeButton = document.getElementById("yt")
 
-    if (songName == null) {
+    if (songName == null || songName === "") {
         card.hidden = true
         notFound.hidden = false
     } else {
         name.innerText = songName
-        if (ccliID == null) {
+        if (ccliID == null || ccliID === "") {
             ccliButton.hidden = true
         } else {
             ccliButton.href = "https://songselect.ccli.com/songs/" + ccliID
         }
-        if (applemusicID == null) {
+        if (applemusicID == null || applemusicID === "") {
             applemusicButton.hidden = true
         } else {
             applemusicButton.href = "https://music.apple.com/au/song/" + applemusicID
         }
-        if (spotifyID == null) {
+        if (spotifyID == null || spotifyID === "") {
             spotifyButton.hidden = true
         } else {
             spotifyButton.href = "https://open.spotify.com/track/" + spotifyID
         }
-        if (youtubeID == null) {
+        if (youtubeID == null || youtubeID === "") {
             youtubeButton.hidden = true
         } else {
             youtubeButton.href = "https://music.youtube.com/watch?v=" + youtubeID
