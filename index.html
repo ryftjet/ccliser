@@ -21,10 +21,10 @@
 <div class="container flex-grow-1">
     <h1 class="mt-3 mb-4">CCLIser</h1>
 
-    <div class="row rounded-5">
-        <img src="" alt="Album Cover" id="albumCover" class="ratio-1x1 col-lg-4 p-0 mb-4 rounded-4">
+    <div class="row rounded-5" id="card">
+        <img src="unknownAlbum.svg" alt="Album Cover" id="albumCover" class="ratio-1x1 col-lg-4 p-0 mb-4 rounded-4">
 
-        <div class="col-lg-8" id="info">
+        <div class="col-lg-8">
             <div>
                 <h2 id="name" class="mb-0"></h2>
                 <h5 id="artist" class="text-secondary mb-3"></h5>
@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div id="notFound" hidden>
+    <div id="notFound">
         <p>Song not found.</p>
     </div>
 </div>
@@ -76,127 +76,103 @@
     const year = new Date().getFullYear();
     document.getElementById('year').textContent = year.toString()
 
-    const ccliID = new URLSearchParams(window.location.search).get('ccli');
-    const applemusicID = new URLSearchParams(window.location.search).get('am');
-    const spotifyID = new URLSearchParams(window.location.search).get('sp');
-    const youtubeID = new URLSearchParams(window.location.search).get('yt');
+    const searchParams = new URLSearchParams(window.location.search)
 
-    const info = document.getElementById("info")
+    const songName = searchParams.get('name')
+    const songArtist = searchParams.get('artist')
+    const ccliID = searchParams.get('ccli')
+    const appleMusicID = searchParams.get('am')
+    const spotifyID = searchParams.get('sp')
+    const youtubeID = searchParams.get('yt')
+    const albumArtURL = searchParams.get('aa')
+
+    const card = document.getElementById("card")
     const notFound = document.getElementById("notFound")
     const name = document.getElementById("name")
     const artist = document.getElementById("artist")
     const albumCover = document.getElementById("albumCover")
     const ccliButton = document.getElementById("ccli-btn")
-    const applemusicButton = document.getElementById("am-btn")
+    const appleMusicButton = document.getElementById("am-btn")
     const spotifyButton = document.getElementById("sp-btn")
     const youtubeButton = document.getElementById("yt-btn")
-    const applemusiciframe = document.getElementById("am-iframe")
-    const spotifyiframe = document.getElementById("sp-iframe")
-    const youtubeiframe = document.getElementById("yt-iframe")
-    let applemusicembedurl = ""
-    let spotifyembedurl = ""
-    let youtubeembedurl = ""
+    const appleMusicFrame = document.getElementById("am-iframe")
+    const spotifyFrame = document.getElementById("sp-iframe")
+    const youtubeFrame = document.getElementById("yt-iframe")
+    let appleMusicEmbedURL = ""
+    let spotifyEmbedURL = ""
+    let youtubeEmbedURL = ""
 
-    if (ccliID == null || ccliID === "") {
-        ccliButton.hidden = true
-    } else {
-        ccliButton.href = "https://songselect.ccli.com/songs/" + ccliID
-    }
-    if (applemusicID == null || applemusicID === "") {
-        applemusicButton.hidden = true
-    } else {
-        applemusicButton.href = "https://music.apple.com/au/song/" + applemusicID
-        applemusicembedurl = "https://embed.music.apple.com/au/song/" + applemusicID
-    }
-    if (spotifyID == null || spotifyID === "") {
-        spotifyButton.hidden = true
-    } else {
-        spotifyButton.href = "https://open.spotify.com/track/" + spotifyID
-        spotifyembedurl = "https://open.spotify.com/embed/track/" + spotifyID
-    }
-    if (youtubeID == null || youtubeID === "") {
-        youtubeButton.hidden = true
-    } else {
-        youtubeButton.href = "https://music.youtube.com/watch?v=" + youtubeID
-        youtubeembedurl = "https://www.youtube.com/embed/" + youtubeID
+    function exists(value) {
+      return value != null && value !== ""
     }
 
-    async function getSongInfo() {
-        // Get Access Token
-        let accessToken
-        let response = await fetch(
-            "https://accounts.spotify.com/api/token",
-            {
-                method: "POST",
-                body: "grant_type=client_credentials",
-                headers: {
-                    "Content-type": "application/x-www-form-urlencoded",
-                    Authorization: "Basic M2Y5NzQ1NzM4MDBhNGZmNWIzMjVkZTk3OTViOGU2MDM6ZmYxODhkMjg2MGZmNDRiYWE1N2FjYzc5YzEyMWEzYjk="
-                },
-            }
-        )
-        try {
-            let json = await response.json()
-            accessToken = json.access_token
-        } catch {
-            console.error("Failed to fetch Spotify Authorisation")
-            info.hidden = true
-            notFound.hidden = false
-        }
-
-        response = await fetch(
-            "https://api.spotify.com/v1/tracks/" + spotifyID,
-            {
-                headers: {
-                    Authorization: "Bearer " + accessToken
-                }
-            }
-        )
-        try {
-            return await response.json()
-        } catch {
-            console.error("Failed to fetch Spotify API")
-            info.hidden = true
-            notFound.hidden = false
-        }
+    if (exists(songName) && exists(ccliID)) {
+      notFound.hidden = true
+    } else {
+      card.hidden = true
     }
 
-    getSongInfo().then((track => {
-        name.innerText = track.name
-        for (let i = 0; i < track.artists.length; i++) {
-            if (artist.innerText === "") {
-                artist.innerText = track.artists[i].name
-            } else {
-                artist.innerText += ", " + track.artists[i].name
-            }
-        }
-        albumCover.src = track.album.images[0].url
-    }))
+    if (exists(songName)) {
+      name.innerText = songName
+    } else {
+      name.innerText = "Unknown Song"
+    }
+    if (exists(songArtist)) {
+      artist.innerText = songArtist
+    } else {
+      artist.innerText = "Unknown Artist"
+    }
+    if (exists(albumArtURL)) {
+      albumCover.src = albumArtURL
+    }
+    if (exists(ccliID)) {
+      ccliButton.href = "https://songselect.ccli.com/songs/" + ccliID
+    } else {
+      ccliButton.hidden = true
+    }
+    if (exists(appleMusicID)) {
+      appleMusicButton.href = "https://music.apple.com/au/song/" + appleMusicID
+      appleMusicEmbedURL = "https://embed.music.apple.com/au/song/" + appleMusicID
+    } else {
+      appleMusicButton.hidden = true
+    }
+    if (exists(spotifyID)) {
+      spotifyButton.href = "https://open.spotify.com/track/" + spotifyID
+      spotifyEmbedURL = "https://open.spotify.com/embed/track/" + spotifyID
+    } else {
+      spotifyButton.hidden = true
+    }
+    if (exists(youtubeID)) {
+      youtubeButton.href = "https://music.youtube.com/watch?v=" + youtubeID
+      youtubeEmbedURL = "https://www.youtube.com/embed/" + youtubeID
+    } else {
+      youtubeButton.hidden = true
+    }
 
     function showAppleMusic(_) {
-        if (applemusiciframe.hidden) {
-            spotifyiframe.hidden = true
-            youtubeiframe.hidden = true
-            applemusiciframe.hidden = false
-            applemusiciframe.src = applemusicembedurl
+        if (appleMusicFrame.hidden) {
+            spotifyFrame.hidden = true
+            youtubeFrame.hidden = true
+            appleMusicFrame.hidden = false
+            appleMusicFrame.src = appleMusicEmbedURL
         }
     }
 
-    spotifyiframe.src = spotifyembedurl  // Spotify doesn't have to be reloaded every time, but Music and YT do.
+    spotifyFrame.src = spotifyEmbedURL  // Spotify doesn't have to be reloaded every time, but Music and YT do.
     function showSpotify(_) {
-        if (spotifyiframe.hidden) {
-            applemusiciframe.hidden = true
-            youtubeiframe.hidden = true
-            spotifyiframe.hidden = false
+        if (spotifyFrame.hidden) {
+            appleMusicFrame.hidden = true
+            youtubeFrame.hidden = true
+            spotifyFrame.hidden = false
         }
     }
 
     function showYoutube(_) {
-        if (youtubeiframe.hidden) {
-            applemusiciframe.hidden = true
-            spotifyiframe.hidden = true
-            youtubeiframe.hidden = false
-            youtubeiframe.src = youtubeembedurl
+        if (youtubeFrame.hidden) {
+            appleMusicFrame.hidden = true
+            spotifyFrame.hidden = true
+            youtubeFrame.hidden = false
+            youtubeFrame.src = youtubeEmbedURL
         }
     }
 
