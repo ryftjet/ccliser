@@ -302,7 +302,7 @@
 
   function updateCCLIserURL() {
     if (exists(songNameInput.value) && exists(CCLIIDInput.value)) {
-      let url = "https://ryftjet.github.io/ccliser?name=" + encodeURI(songNameInput.value) + "&ccli=" + encodeURI(CCLIIDInput.value)
+      let url = "https://ryftjet.github.io/ccliser/v3?name=" + encodeURI(songNameInput.value) + "&ccli=" + encodeURI(CCLIIDInput.value)
       if (exists(artistNameInput.value)) {
         url += "&artist=" + encodeURI(artistNameInput.value)
       }
