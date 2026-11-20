@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Using CCLIser</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <style>
+      a {
+          transition: opacity 0.2s ease-out;
+      }
+
+      a:hover {
+          opacity: 70%;
+      }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+<div class="container flex-grow-1">
+  <h1 class="mt-3 mb-4">CCLIser</h1>
+
+  <div class="row rounded-5">
+    <h2 class="text-center">How do I use CCLIser?</h2>
+    <p>CCLIser is a tool for sharing songs from CCLI with others using one link that offers viewers the option to open
+      the song in CCLI, Music, Spotify or YouTube Music. CCLIser URLs should use the following format:</p>
+    <p><code>https://ryftjet.github.io/ccliser/?name=<span class="text-primary">Song%20Name</span>&artist=<span
+        class="text-primary">Artist%20Name</span>&ccli=<span class="text-primary">123456789</span>&am=<span
+        class="text-primary">123456798</span>&sp=<span class="text-primary">abc123</span>&yt=<span class="text-primary">abc123</span>&aa=https://<span
+        class="text-primary">example.com/image.jpg</span></code></p>
+    <p>The simplest way to create a CCLIser URL is by using <a href="/create">this form</a>. If you'd like more
+      technical info on the URL format, read on!</p>
+    <p>The URL must include query parameters for at least the song name and the CCLI ID. Otherwise, the link will not
+      work. All other query parameters are optional. Every query parameter should be URL-encoded, such as by using
+      <code>name=John%20Smith</code>
+      instead of <code>name=John Smith</code>, etc.</p>
+    <div class="border rounded-3 overflow-auto mx-auto px-0 mb-3" style="max-width: 500px">
+      <table class="table mb-0">
+        <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Meaning</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>name</td>
+          <td>The name of the song</td>
+        </tr>
+        <tr>
+          <td>artist</td>
+          <td>The name of the artist/s</td>
+        </tr>
+        <tr>
+          <td>ccli</td>
+          <td>The song's ID in CCLI</td>
+        </tr>
+        <tr>
+          <td>am</td>
+          <td>The song's ID in Music</td>
+        </tr>
+        <tr>
+          <td>sp</td>
+          <td>The song's ID in Spotify</td>
+        </tr>
+        <tr>
+          <td>yt</td>
+          <td>The song's ID in YouTube / YouTube Music</td>
+        </tr>
+        <tr style="border-bottom: transparent">
+          <td>aa</td>
+          <td>The URL of the song's album artwork</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>There are numerous options for finding album artwork for a song, such as <a href="https://www.albumartworkfinder.com">Album Artwork Finder</a>.</p>
+
+    <p>To find a song's ID on a particular platform, follow the instructions below:</p>
+
+    <h3>CCLI SongSelect</h3>
+    <ol>
+      <li>Open <a href="https://songselect.ccli.com">CCLI SongSelect</a> and search for the song.</li>
+      <li>Open the song's page, then copy the URL.</li>
+      <li>The song's CCLI ID is the number near the end of the URL, after <code>/Songs/</code> and before the song name.</li>
+    </ol>
+
+    <h3>Music</h3>
+    <h5>Web</h5>
+    <ol>
+      <li>Open <a href="https://music.apple.com">Music</a> and search for the song.</li>
+      <li>Next to the song, press <b><i class="bi bi-three-dots"></i></b>, then <b>Copy Link <i class="bi bi-link-45deg"></i></b>.</li>
+      <li>The song's Music ID is the number at the end of the URL you just copied.</li>
+    </ol>
+    <h5>Desktop</h5>
+    <ol>
+      <li>Open the Music app and search for the song.</li>
+      <li>Next to the song, press <b><i class="bi bi-three-dots"></i></b>, then hover over <b><i class="bi bi-box-arrow-up"></i> Share</b> and click <b><i class="bi bi-link-45deg"></i> Copy Link</b>.</li>
+      <li>The song's Music ID is the number at the end of the URL you just copied, after <code>?i=</code>.</li>
+    </ol>
+    <h5>Mobile</h5>
+    <ol>
+      <li>Open the Music app and search for the song.</li>
+      <li>Next to the song, press <b><i class="bi bi-three-dots"></i></b>, then <b><i class="bi bi-box-arrow-up"></i> Share</b>, then <b><i class="bi bi-files"></i> Copy</b>.</li>
+      <li>The song's Music ID is the number at the end of the URL you just copied, between <code>?i=</code> and <code>?l=</code>.</li>
+    </ol>
+
+    <h3>Spotify</h3>
+    <h5>Web &amp; Desktop</h5>
+    <ol>
+      <li>Open <a href="https://open.spotify.com">Spotify</a> and search for the song.</li>
+      <li>Next to the song, press <b><i class="bi bi-three-dots"></i></b>, then hover over <b><i class="bi bi-box-arrow-up"></i> Share</b> and click <b>Copy link to Song</b>.</li>
+      <li>The song's Spotify ID is the sequence near the middle of the URL you just copied, between <code>/track/</code> and <code>?si=</code>.</li>
+    </ol>
+    <h5>Mobile</h5>
+    <ol>
+      <li>Open the Spotify app and search for the song.</li>
+      <li>Next to the song, press <b><i class="bi bi-three-dots"></i></b>, then <b><i class="bi bi-box-arrow-up"></i> Share</b>, then <b><i class="bi bi-link-45deg"></i> Copy link</b>.</li>
+      <li>The song's Spotify ID is the sequence near the middle of the URL you just copied, between <code>/track/</code> and <code>?si=</code>.</li>
+    </ol>
+
+    <h3>YouTube Music</h3>
+    <p>YouTube Music is just YouTube with a slightly different interface and only music videos, so you can use either platform to get the song's YouTube Music ID.</p>
+    <h5>YouTube</h5>
+    <ol>
+      <li>Open <a href="https://youtube.com">YouTube</a> and search for the song.</li>
+      <li>Open the song's page and press <b><img src="ytshare.svg" height="16pt" alt=""> Share</b>, then <b>Copy</b>.</li>
+      <li>The song's YouTube Music ID is the sequence near the middle of the URL you just copied, between <code>youtu.be/</code> and <code>?si=</code>.</li>
+    </ol>
+    <h5>YouTube Music</h5>
+    <ol>
+      <li>Open <a href="https://music.youtube.com">YouTube Music</a> and search for the song.</li>
+      <li>Next to the song, press <b><i class="bi bi-three-dots-vertical"></i></b>, then <b><img src="ytshare.svg" height="16pt" alt=""> Share</b>, then <b>Copy</b>.</li>
+      <li>The song's YouTube Music ID is the sequence near the middle of the URL you just copied, between <code>/watch?v=</code> and <code>?si=</code>.</li>
+    </ol>
+  </div>
+</div>
+
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+  <div class="container d-flex flex-wrap justify-content-between align-items-center">
+    <p class="col-md-4 mb-0 text-body-secondary">© <span id="year"></span> Ryftjet</p>
+    <a href="/"
+       class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+       aria-label="Bootstrap">
+      <img src="https://avatars.githubusercontent.com/u/79617327" height="50px" alt="Ryftjet" class="rounded-2">
+    </a>
+    <ul class="nav col-md-4 justify-content-end">
+      <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
+      <li class="nav-item"><a href="https://github.com/ryftjet" class="nav-link px-2 text-body-secondary">GitHub</a>
+      </li>
+      <li class="nav-item"><a href="mailto:petal_drumlin.6c@icloud.com" class="nav-link px-2 text-body-secondary">Contact</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  const year = new Date().getFullYear();
+  document.getElementById('year').textContent = year.toString()
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
