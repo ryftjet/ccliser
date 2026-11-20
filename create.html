@@ -179,8 +179,8 @@
           <h5 id="CCLIserURL" class="mb-0"></h5>
         </div>
         <div class="card-body" id="urlFailure">
-          <p class="mb-0">You haven't put in enough information to make a valid CCLIser URL. Pleae ensure you at least enter the song
-            name and CCLI ID.</p>
+          <p class="mb-0">You haven't put in enough information to make a valid CCLIser URL. Please ensure you at least
+            enter the song name and CCLI ID.</p>
         </div>
       </div>
     </form>
@@ -218,7 +218,6 @@
   const youtubeIDInput = document.getElementById("youtubeMusicIDInput")
 
   const openAAFinderLink = document.getElementById("openAlbumArtworkFinderLink")
-  const openLCLink = document.getElementById("openLoopCommunityLink")
   const openSSLink = document.getElementById("openCCLILink")
   const openAMLink = document.getElementById("openAppleMusicLink")
   const openSpLink = document.getElementById("openSpotifyLink")
@@ -243,7 +242,6 @@
       // Update search URLs
       const searchQuery = encodeURI(songNameInput.value + " " + artistNameInput.value)
       openAAFinderLink.href = "https://www.albumartworkfinder.com/search?q=" + searchQuery + "&media=song"
-      openLCLink.href = "https://loopcommunity.com/search?query=" + searchQuery + "&category=songs&sort=-best_selling"
       openSSLink.href = "https://songselect.ccli.com/search/results?search=" + searchQuery
       openAMLink.href = "https://music.apple.com/search?term=" + searchQuery
       openSpLink.href = "https://open.spotify.com/search/" + searchQuery
@@ -251,7 +249,6 @@
     } else {
       // Reset to defaults
       openAAFinderLink.href = "https://albumartworkfinder.com"
-      openLCLink.href = "https://loopcommunity.com/search"
       openSSLink.href = "https://songselect.ccli.com"
       openAMLink.href = "https://music.apple.com"
       openSpLink.href = "https://open.spotify.com"
